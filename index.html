@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+
+	<title>Hangul to Yale Romanization Converter</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+	<style type="text/css">
+	<!--
+	@font-face {
+		font-family: 'UnDotum';
+		src: url('./fonts/UnDotum.ttf') format("truetype");
+	}
+	#hangul {
+		font-family: 'UnDotum';
+	}
+	-->
+	</style>
+
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/web.js"></script>
+
+
+</head>
+<body>
+
+<div class="navbar">
+<div class="navbar-inner">
+<a class="brand">Hangul to Yale Romanization Converter</a>
+</div>
+</div>
+
+<div class="container">
+<form class="form-horizontal">
+
+<div class="control-group">
+ <label class="control-label" for="hangul">Hangul</label>
+ <div class="controls">
+  <textarea class="input-block-level" id="hangul" name="hangul" style="height: 200px; font-size: 140%;" placeholder="한글"></textarea>
+ </div>
+</div>
+
+<div class="control-group">
+ <div class="controls">
+ <button type="submit" id="convert" class="btn btn-primary">Convert</button>
+ </div>
+</div>
+
+<div class="control-group">
+ <label class="control-label" for="yale">Yale Romanization</label>
+ <div class="controls">
+  <textarea class="input-block-level" readonly="true" id="yale" name="yale"  style="height: 200px; font-size: 140%;"></textarea>
+ </div>
+</div>
+
+<legend>Options (not working yet)</legend>
+
+ <div class="control-group">
+  <label class="control-label" for="dots">Dots for syllable boundaries</label>
+  <div class="controls">
+   <div class="btn-group" data-toggle="buttons-radio" id="dots">
+    <button type="button" class="btn">Never</button>
+    <button type="button" class="btn">When ambiguous in modern Korean</button>
+    <button type="button" class="btn">Always</button>
+   </div>
+  </div>
+ </div>
+ <div class="control-group">
+  <label class="control-label" for="dots">u (ㅡ) / wu (ㅜ) distinction after labials</label>
+  <div class="controls">
+   <div class="btn-group" data-toggle="buttons-radio" id="dots">
+    <button type="button" class="btn">Keep it</button>
+    <button type="button" class="btn">Always use <em>u</em></button>
+   </div>
+  </div>
+ </div>
+ <div class="control-group">
+  <label class="control-label" for="wu">Araea (ㆍ)</label>
+  <div class="controls">
+   <div class="btn-group" data-toggle="buttons-radio" id="dots">
+    <button type="button" class="btn">Use <em>@</em></button>
+    <button type="button" class="btn">Use <em>o</em> (Use <em>wo</em> for ㅗ instead)</button>
+   </div>
+  </div>
+ </div>
+
+ </div>
+</div>
+</form>
+
+</div>
+
+<footer style="text-align: center; padding: 30px 0; margin-top: 70px; background-color: #e0e0e0;">
+<div class="container">
+2013 &copy; Yoshihiko Asao
+</div>
+</footer>
+
+</body>
+</html>

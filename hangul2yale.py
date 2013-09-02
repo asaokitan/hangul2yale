@@ -1,18 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+import sys, argparse
+import pickle
 
-'''
-
-import sys, cgi, argparse
-
-choseong = ('k', 'kk', 'n', 't', 'tt', 'l', 'm', 'p', 'pp', 's', 'ss', '', 'c', 'cc', 'ch', 'kh', 'th', 'ph', 'h')
-jungseong = ('a', 'ay', 'ya', 'yay', 'e', 'ey', 'ye', 'yey', 'o', 'wa', 'way', 'oy', 'yo', 'wu', 'we', 'wey', 'wi', 'yu', 'u', 'uy', 'i')
-jongseong = ('', 'k', 'kk', 'ks', 'n', 'nc', 'nh', 't', 'l', 'lk', 'lm', 'lp', 'ls', 'lth', 'lph', 'lh', 'm', 'p', 'ps', 's', 'ss', 'ng', 'c', 'ch', 'kh', 'th', 'ph', 'h')
+table = pickle.load(open('table.pickle'))
 
 def block (codepoint):
-	'''Return the name of Hangul-related block.'''
+	'''Return the name of Hangul-related Unicode block.'''
 	
 	if 0xAC00 <= codepoint <= 0xD7A3:
 		return 'syllables'
@@ -31,9 +26,16 @@ def convert (char):
 	'''Return the romanization of a Hangul character.'''
 
 	codepoint = ord (char)
-	if block (codepoint):
+	if block(codepoint) == 'syllables':
 		num = codepoint - 44032
-		return choseong [(num // 28) // 21] + jungseong [(num // 28) % 21] + jongseong [num % 28]
+		return table['syllables']['choseong'][(num // 28) // 21] + table['syllables']['jungseong'][(num // 28) % 21] + table['syllables']['jongseong'][num % 28]
+
+	elif block(codepoint) == 'jamo':
+		num = codepoint - 4352
+		if table['jamo'][num][3] == None:
+			return char
+		else:
+			return table['jamo'][num][3]
 	else:
 		return char
 
