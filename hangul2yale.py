@@ -51,7 +51,7 @@ def tweeks (string, charlist, **options):
 			if i == 0:
 				continue
 			
-			if char == 'wu' char[i-1] in ['p', 'ph', 'pp', 'm']:
+			if char == 'wu' and char[i-1] in ['p', 'ph', 'pp', 'm']:
 				new_charlist[i] = 'u'
 			
 	return tweeked_charlist
