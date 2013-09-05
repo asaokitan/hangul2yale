@@ -43,16 +43,27 @@ def convert (char):
 def tweeks (string, charlist, **options):
 	'''Tweeks for minor rules'''
 
-	return charlist
+	tweeked_charlist = charlist
+
+	# discard u/wu distinction after labials
+	if options['discard']:
+		for (i, char) in enumerate(tweeked_charlist):
+			if i == 0:
+				continue
+			
+			if char == 'wu' char[i-1] in ['p', 'ph', 'pp', 'm']:
+				new_charlist[i] = 'u'
+			
+	return tweeked_charlist
 
 def convert_string (string, **options):
 	'''convert a Unicode-based string into Yale Romanization.'''
 
 	charlist = [convert(char) for char in string]
 
-	charlist = tweeks(string, charlist, **options)
+	tweeked_charlist = tweeks(string, charlist, **options)
 
-	return ''.join(charlist)
+	return ''.join(tweeked_charlist)
 
 
 if __name__ == '__main__':
