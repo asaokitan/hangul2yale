@@ -40,19 +40,33 @@ def convert (char):
 		return char
 
 
-def tweeks (charlist):
+def tweeks (string, charlist, **options):
 	'''Tweeks for minor rules'''
 
-	pass
+	return charlist
 
-def convert_string (string):
+def convert_string (string, **options):
+	'''convert a Unicode-based string into Yale Romanization.'''
+
 	charlist = [convert(char) for char in string]
+
+	charlist = tweeks(string, charlist, **options)
+
 	return ''.join(charlist)
+
 
 if __name__ == '__main__':
 
-	#parser = argparse.ArgumentParser()
-	#parser.add_argument('-w', dest='wu', action='store_false', help='maintains u/wu distinction after labials')
-	#args = parser.parse_args()
+	parser = argparse.ArgumentParser()
+	
+	parser.add_argument('string', action='store', help='a Unicode-based string to be converted into Yale Romanization')
 
-	print convert_string(sys.argv[1].decode('utf-8'))
+	group = parser.add_mutually_exclusive_group()
+	group.add_argument('-d', '--disambiguate', action='store_true', help='indicate syllable boundaries with . when ambiguous in modern Korean')
+	group.add_argument('-a', '--always', action='store_true', help='always indicate syllable boundaries with .')
+	parser.add_argument('-w', '--discard', action='store_true', help='discard the u/wu distinction after labials')
+	parser.add_argument('-o', '--oaraea', action='store_true', help='use o for araea instead of @')
+	args = parser.parse_args()
+
+	print args
+	print convert_string(args.string.decode('utf-8'), **vars(args))
