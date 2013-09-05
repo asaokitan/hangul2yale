@@ -68,5 +68,4 @@ if __name__ == '__main__':
 	parser.add_argument('-o', '--oaraea', action='store_true', help='use o for araea instead of @')
 	args = parser.parse_args()
 
-	print args
 	print convert_string(args.string.decode('utf-8'), **vars(args))
