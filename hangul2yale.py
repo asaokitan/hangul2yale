@@ -40,28 +40,34 @@ def convert (char):
 		return char
 
 
-def tweeks (string, charlist, **options):
+def tweeks (charlist, **args):
 	'''Tweeks for minor rules'''
 
 	tweeked_charlist = charlist
 
 	# discard u/wu distinction after labials
-	if options['discard']:
+	if args['discard']:
 		for (i, char) in enumerate(tweeked_charlist):
-			if i == 0:
-				continue
-			
-			if char == 'wu' and char[i-1] in ['p', 'ph', 'pp', 'm']:
-				new_charlist[i] = 'u'
+
+			if char.startswith('mwu'):
+				tweeked_charlist[i] = 'mu' + char[3:]
+			elif char.startswith('pwu'):
+				tweeked_charlist[i] = 'pu' + char[3:]
+			elif char.startswith('ppwu'):
+				tweeked_charlist[i] = 'ppu' + char[4:]	
+			elif char.startswith('phwu'):
+				tweeked_charlist[i] = 'phu' + char[4:]
+			elif i > 0 and char == 'wu' and (tweeked_charlist[i-1][-1] in ['p','m'] or tweeked_charlist[i-1][-2:] == 'ph'):
+				tweeked_charlist[i] = 'u'
 			
 	return tweeked_charlist
 
-def convert_string (string, **options):
+def convert_string (**args):
 	'''convert a Unicode-based string into Yale Romanization.'''
 
-	charlist = [convert(char) for char in string]
+	charlist = [convert(char) for char in args['string']]
 
-	tweeked_charlist = tweeks(string, charlist, **options)
+	tweeked_charlist = tweeks(charlist, **args)
 
 	return ''.join(tweeked_charlist)
 
@@ -79,4 +85,5 @@ if __name__ == '__main__':
 	parser.add_argument('-o', '--oaraea', action='store_true', help='use o for araea instead of @')
 	args = parser.parse_args()
 
-	print convert_string(args.string.decode('utf-8'), **vars(args))
+	args.string = args.string.decode('utf-8')
+	print convert_string(**vars(args))
