@@ -46,7 +46,7 @@ def tweeks (charlist, **args):
 	tweeked_charlist = charlist
 
 	# discard u/wu distinction after labials
-	if args['discard']:
+	if args.get('discard'):
 		for (i, char) in enumerate(tweeked_charlist):
 
 			if char.startswith('mwu'):

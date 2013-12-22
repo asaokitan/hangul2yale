@@ -15,7 +15,7 @@ if __name__ == "__main__":
 		hangul = form.getvalue('hangul').decode('utf-8')
 		#dots = form.getvalue('dots')
 
-		result = hangul2yale.convert_string(hangul)
+		result = hangul2yale.convert_string(string=hangul)
 	else:
 		result = ''
 	
